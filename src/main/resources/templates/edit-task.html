@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Registrar Tarea</title>
+    <title>Editar Tarea</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   </head>
   <body>
     <div class="container">
-      <h1>Registrar Tarea</h1>
-      <form th:action="@{/addTask}" th:object="${task}" method="post">
+      <h1>Editar Tarea</h1>
+      <form
+        th:action="@{/edit-task/{id}(id=${task.id})}"
+        th:object="${task}"
+        method="post"
+      >
         <div class="form-group">
           <label for="name">Nombre</label>
           <input
@@ -34,7 +38,7 @@
             th:field="*{startDate}"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
       </form>
     </div>
   </body>

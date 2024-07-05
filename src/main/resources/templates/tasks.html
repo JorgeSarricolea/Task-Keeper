@@ -13,6 +13,7 @@
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Fecha de Inicio</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -20,6 +21,18 @@
             <td th:text="${task.name}"></td>
             <td th:text="${task.description}"></td>
             <td th:text="${task.startDate}"></td>
+            <td>
+              <a
+                th:href="@{/edit-task/{id}(id=${task.id})}"
+                class="btn btn-warning"
+                >Editar</a
+              >
+              <a
+                th:href="@{/delete-task/{id}(id=${task.id})}"
+                class="btn btn-danger"
+                >Eliminar</a
+              >
+            </td>
           </tr>
         </tbody>
       </table>

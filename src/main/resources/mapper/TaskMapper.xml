@@ -3,6 +3,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.test.todotasks.repository.TaskMapper">
+
+    <!-- Define a result map to map columns from the database to properties in the Task model -->
     <resultMap id="TaskResultMap" type="com.test.todotasks.model.Task">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
@@ -10,12 +12,30 @@
         <result column="startDate" property="startDate"/>
     </resultMap>
 
+    <!-- Select all tasks from the database -->
     <select id="findAll" resultMap="TaskResultMap">
         SELECT * FROM tasks
     </select>
 
+    <!-- Select a task by its ID from the database -->
+    <select id="findById" parameterType="long" resultMap="TaskResultMap">
+        SELECT * FROM tasks WHERE id = #{id}
+    </select>
+
+    <!-- Insert a new task into the database -->
     <insert id="insert" parameterType="com.test.todotasks.model.Task" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tasks (name, description, startDate)
         VALUES (#{name}, #{description}, #{startDate})
     </insert>
+
+    <!-- Update an existing task in the database -->
+    <update id="update" parameterType="com.test.todotasks.model.Task">
+        UPDATE tasks SET name = #{name}, description = #{description}, startDate = #{startDate}
+        WHERE id = #{id}
+    </update>
+
+    <!-- Delete a task by its ID from the database -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM tasks WHERE id = #{id}
+    </delete>
 </mapper>

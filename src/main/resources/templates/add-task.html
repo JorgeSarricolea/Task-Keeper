@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Registrar Tarea</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Registrar Tarea</h1>
+      <form th:action="@{/add-task}" th:object="${task}" method="post">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            th:field="*{name}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea
+            class="form-control"
+            id="description"
+            th:field="*{description}"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="startDate">Fecha de Inicio</label>
+          <input
+            type="date"
+            class="form-control"
+            id="startDate"
+            th:field="*{startDate}"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </form>
+    </div>
+  </body>
+</html>
