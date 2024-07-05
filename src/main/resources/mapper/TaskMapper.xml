@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.todotasks.repository.TaskMapper">
+    <resultMap id="TaskResultMap" type="com.test.todotasks.model.Task">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="startDate" property="startDate"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="TaskResultMap">
+        SELECT * FROM tasks
+    </select>
+
+    <insert id="insert" parameterType="com.test.todotasks.model.Task" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tasks (name, description, startDate)
+        VALUES (#{name}, #{description}, #{startDate})
+    </insert>
+</mapper>
