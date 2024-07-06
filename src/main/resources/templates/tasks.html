@@ -21,36 +21,64 @@
     <div class="container-full-height">
       <div class="container mt-5 table-container rounded-4 shadow">
         <h1 class="text-center mb-4">Task Keeper</h1>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Start Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="task : ${tasks}">
-              <td th:text="${task.name}"></td>
-              <td th:text="${task.description}"></td>
-              <td th:text="${task.startDate}"></td>
-              <td>
-                <a
-                  th:href="@{/edit-task/{id}(id=${task.id})}"
-                  class="btn btn-primary btn-sm me-1"
-                  >Edit</a
-                >
-                <a
-                  th:href="@{/delete-task/{id}(id=${task.id})}"
-                  class="btn btn-danger btn-sm"
-                  >Delete</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+        <div th:if="${#lists.isEmpty(tasks)}">
+          <p class="text-center">No tasks yet.</p>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(tasks)}">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="task : ${tasks}">
+                <td th:text="${task.name}"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.startDate}"></td>
+                <td>
+                  <a
+                    th:href="@{/edit-task/{id}(id=${task.id})}"
+                    class="btn btn-primary btn-sm me-1"
+                    >Edit</a
+                  >
+                  <a
+                    href="#"
+                    class="btn btn-danger btn-sm delete-task-button"
+                    th:attr="data-task-id=${task.id}, data-task-name=${task.name}"
+                    onclick="return confirmDelete(this)"
+                    >Delete</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
+    <script th:inline="javascript">
+      // Function to confirm task deletion
+      function confirmDelete(button) {
+        // Get task ID and task name from button attributes
+        const taskId = button.getAttribute("data-task-id");
+        const taskName = button.getAttribute("data-task-name");
+
+        const confirmMessage = `Are you sure you want to delete this task: "${taskName}"?`;
+
+        if (confirm(confirmMessage)) {
+          // If user confirms, redirect to delete task endpoint
+          window.location.href = `/delete-task/${taskId}`;
+        }
+
+        // Always return false to prevent default link behavior
+        return false;
+      }
+    </script>
   </body>
 </html>
