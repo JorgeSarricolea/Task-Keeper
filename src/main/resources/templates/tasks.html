@@ -9,39 +9,48 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <style>
+      .table-container {
+        padding: 20px;
+      }
+    </style>
   </head>
   <body>
-    <div class="container mt-5">
-      <h1 class="text-center mb-4">Task Keeper</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Start date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="task : ${tasks}">
-            <td th:text="${task.name}"></td>
-            <td th:text="${task.description}"></td>
-            <td th:text="${task.startDate}"></td>
-            <td>
-              <a
-                th:href="@{/edit-task/{id}(id=${task.id})}"
-                class="btn btn-warning btn-sm me-1"
-                >Edit</a
-              >
-              <a
-                th:href="@{/delete-task/{id}(id=${task.id})}"
-                class="btn btn-danger btn-sm"
-                >Delete</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container-full-height">
+      <div class="container mt-5 table-container rounded-4 shadow">
+        <h1 class="text-center mb-4">Task Keeper</h1>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Start Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="task : ${tasks}">
+              <td th:text="${task.name}"></td>
+              <td th:text="${task.description}"></td>
+              <td th:text="${task.startDate}"></td>
+              <td>
+                <a
+                  th:href="@{/edit-task/{id}(id=${task.id})}"
+                  class="btn btn-primary btn-sm me-1"
+                  >Edit</a
+                >
+                <a
+                  th:href="@{/delete-task/{id}(id=${task.id})}"
+                  class="btn btn-danger btn-sm"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </body>
 </html>

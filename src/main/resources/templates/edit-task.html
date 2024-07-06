@@ -11,9 +11,11 @@
     />
   </head>
   <body>
+    <div th:replace="fragments/header :: header"></div>
+
     <div
       class="container d-flex align-items-center justify-content-center"
-      style="height: 100vh"
+      style="height: 90vh"
     >
       <div
         class="card p-4 rounded-4 shadow"
@@ -57,16 +59,15 @@
         </form>
       </div>
     </div>
-
-    <!-- Script para establecer la fecha actual por defecto si está vacía -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var startDateInput = document.getElementById("startDate");
-        if (!startDateInput.value) {
-          var today = new Date().toISOString().split("T")[0];
-          startDateInput.value = today;
-        }
-      });
-    </script>
   </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var startDateInput = document.getElementById("startDate");
+    if (!startDateInput.value) {
+      var today = new Date().toISOString().split("T")[0];
+      startDateInput.value = today;
+    }
+  });
+</script>

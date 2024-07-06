@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>New task</title>
+    <title>New Task</title>
     <!-- Bootstrap CSS CDN -->
     <link
       rel="stylesheet"
@@ -11,15 +11,16 @@
     />
   </head>
   <body>
+    <div th:replace="fragments/header :: header"></div>
     <div
       class="container d-flex align-items-center justify-content-center"
-      style="height: 100vh"
+      style="height: 90vh"
     >
       <div
         class="card p-4 rounded-4 shadow"
         style="width: 100%; max-width: 500px"
       >
-        <h1 class="text-center">New task</h1>
+        <h1 class="text-center">New Task</h1>
         <form th:action="@{/add-task}" th:object="${task}" method="post">
           <div class="form-group mb-3">
             <label for="name">Title</label>
@@ -39,7 +40,7 @@
             ></textarea>
           </div>
           <div class="form-group mb-3">
-            <label for="startDate">Start date</label>
+            <label for="startDate">Start Date</label>
             <input
               type="date"
               class="form-control"
@@ -47,17 +48,17 @@
               th:field="*{startDate}"
             />
           </div>
-          <button type="submit" class="btn btn-primary w-100">Create</button>
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
         </form>
       </div>
     </div>
-
-    <!-- Script para establecer la fecha actual por defecto -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         var startDateInput = document.getElementById("startDate");
-        var today = new Date().toISOString().split("T")[0];
-        startDateInput.value = today;
+        if (!startDateInput.value) {
+          var today = new Date().toISOString().split("T")[0];
+          startDateInput.value = today;
+        }
       });
     </script>
   </body>
